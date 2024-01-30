@@ -1,5 +1,5 @@
 <script>
-import TableTaskStatusesButton from "@/components/TableTasks/TableTaskStatusesButton.vue"
+import TableTaskStatusesButton from "@/components/TableTasks/TableTaskTabButtons.vue"
 export default {
   name: "TableTaskStatusesButtons",
   components: {TableTaskStatusesButton},

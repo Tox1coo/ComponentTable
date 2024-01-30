@@ -1,263 +1,59 @@
 {
-  "stageTask": [
-    {
-      "id": 1,
-      "label": "Делаю",
-      "statuses": [
-        {
-          "id": 1,
-          "name": "work",
-          "label": "В работе",
-          "color": "#6CBE39"
-        },
-        {
-          "id": 2,
-          "name": "overdue",
-          "label": "Просроченные",
-          "color": "#C75550"
-        },
-        {
-          "id": 3,
-          "name": "deferred",
-          "label": "Отложенные",
-          "color": "#FFAE02"
-        },
-        {
-          "id": 4,
-          "name": "waitingControl",
-          "label": "Ждёт контроля",
-          "color": "#272727"
-        }
-      ]
+  "id": {
+    "type": "number",
+    "label": 1
+  },
+  "name": {
+    "type": "text",
+    "label": "Пример названия"
+  },
+  "status": {
+    "type": "select",
+    "code":"work",
+    "label": "В работе",
+    "colorText": "#6CBE39",
+    "selectDropList": [
+      {
+        "code": "work",
+        "label": "В работе",
+        "isChecked": true
+      },
+      {
+        "code": "overdue",
+        "label": "Просроченно",
+        "isChecked": false
+      }
+    ],
+    "editable": true
+  },
+  "activity": {
+    "type": "date",
+    "messages": {
+      "count": 1,
+      "bgc": "#6CBE39"
     },
-    {
-      "id": 2,
-      "label": "Архив",
-      "statuses": [
-        {
-          "id": 1,
-          "name": "relevant",
-          "label": "Актуальные",
-          "color": "#6CBE39"
-        },
-        {
-          "id": 2,
-          "name": "deleted",
-          "label": "Удалённые",
-          "color": "#A9A9A9"
-        }
-      ]
-    }
-  ],
-  "tasks": [
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 2,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "overdue",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": ""
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    },
-    {
-      "id": 1,
-      "name": "Создать чат-бот для сотрудников",
-      "status": "work",
-      "activity": "31 Февраля 2024, 11:38",
-      "messages": "2",
-      "deadlineDate": "17 Марта, 15:00 ",
-      "director": "Дорофеев Д.Н",
-      "responsible": "Аврамов К.Д",
-      "projectOFgroup": {
-        "image": "",
-        "name": "SOLT"
-      }
-    }
-  ]
+    "label": "31 Февраля 2024, 11:38"
+  },
+  "deadlineDate": {
+    "type": "date",
+    "label": "17 Марта, 15:00"
+  },
+  "director": {
+    "type": "text",
+    "label": "Дорофеев Д.Н"
+  },
+  "responsible": {
+    "type": "text",
+    "label": "Аврамов К.Д",
+    "editable": true
+  },
+  "projectOFgroup": {
+    "type": "image",
+    "image": "",
+    "label": "SOLT"
+  },
+  "actions": {
+    "enable": true,
+    "text": ""
+  }
 }
