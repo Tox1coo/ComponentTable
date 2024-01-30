@@ -1,14 +1,17 @@
 <script>
-import TableTaskStatusesButtons from "@/components/TableTasks/TableTaskStatusesButtons.vue";
+import TableTaskTabButtons from "@/components/TableTasks/TableTaskTabButtons.vue";
 import TableTaskColumns from "@/components/TableTasks/TableTaskColumns.vue";
 import TableTaskRow from "@/components/TableTasks/TableTaskRow.vue";
 import Paginator from "@/components/Paginator/Paginator.vue";
 import ShowCountItems from "@/components/ShowsCount/ShowCountItems.vue";
 import TheButton from "@/components/UI/TheButton.vue";
+import simplebar from 'simplebar-vue';
+import 'simplebar-vue/dist/simplebar.min.css';
 
+;
 export default {
   name: "TableTask",
-  components: {TheButton, ShowCountItems, Paginator, TableTaskRow, TableTaskColumns, TableTaskStatusesButtons},
+  components: {TheButton, ShowCountItems, Paginator, TableTaskRow, TableTaskColumns, TableTaskTabButtons, simplebar},
   data() {
     return {
       itemsPerPage: 5,
@@ -18,7 +21,7 @@ export default {
     }
   },
   props: {
-    statusesList: {
+    tabButtonList: {
       type: Array,
     },
     items: {
@@ -31,6 +34,7 @@ export default {
     }
   },
   computed: {
+
     sliceItems() {
       let from = (this.currentPage - 1) * this.itemsPerPage;
       let to = from + this.itemsPerPage;
@@ -76,24 +80,38 @@ export default {
         }
       }
     },
-
+  },
+  watch: {
+    items() {
+      this.currentPage = 1;
+      this.selectedRows = [];
+      this.selectedAll = false;
+    }
   }
 }
 </script>
 
 <template>
   <div class="table-tasks">
-    <TableTaskStatusesButtons :statusesList="statusesList" />
+    <div class="tab-list">
+      <TableTaskTabButtons v-for="tabButton in tabButtonList" :key="tabButton.id" :tab-button-info="tabButton" @clickTabOnTable="$emit('clickTabOnTable', tabButton)"/>
+    </div>
     <div class="table-tasks__wrapper table">
       <div class="table-tasks__header">
-        <TableTaskColumns :columns-table="columns" @updateSelectRow="updateSelectRow" />
+        <TableTaskColumns :columns-table="columns" @updateSelectRow="updateSelectRow" :selected-all="selectedAll"/>
       </div>
+
+      <simplebar  v-if="sliceItems.length > 0" style="max-height: 700px" data-simplebar-auto-hide="false" class="custom-scroll">
       <div class="table-tasks__body">
-        <TableTaskRow v-for="row in sliceItems" :key="row.id" :row="row" :columns="columns" class="mb-lg" @updateSelectRow="updateSelectRow" :selected-rows="selectedRows">
+        <TableTaskRow  v-for="(row,index) in sliceItems" :key="index" :row="row" :columns="columns" @updateSelectRow="updateSelectRow" :selected-rows="selectedRows">
           <template #actionsButtons>
             <TheButton text="Войти в группу" />
           </template>
         </TableTaskRow>
+      </div>
+      </simplebar>
+      <div v-else  class="table-tasks__body empty">
+        <h3>Данных нет!</h3>
       </div>
       <div class="table-tasks__footer">
         <Paginator :pages="items.length" :items-per-page="itemsPerPage" @updatePageNumber="getCurrentPage" :current-page="currentPage"/>
@@ -106,22 +124,27 @@ export default {
 <style scoped lang="scss">
 .table-tasks {
   margin-top: 5rem;
-
+  .tab-list {
+    gap: 0.2rem;
+    display: flex;
+  }
   &__wrapper {
-    padding: 2rem 6.4rem 2rem 3.5rem;
     background-color: #fff;
     border-radius: 0 0.5rem 0.5rem;
     height: fit-content;
   }
   &__header {
-    padding-bottom: 2rem;
     border-bottom: 1px solid #e5e5e5;
+    padding: 2rem 6rem 2.5rem 4rem;
   }
   &__body {
-    margin-top: 3rem;
-    margin-bottom: 2.5rem;
-    overflow: auto;
-    max-height: 600px;
+    max-height: 700px;
+    &.empty {
+      font-size: 2rem;
+      display: grid;
+      place-items: center;
+      padding: 3rem
+    }
     &::-webkit-scrollbar {
       &-track {
         background-color: rgba(#D8D8D8, 0.5);
@@ -136,6 +159,9 @@ export default {
   &__footer {
     display: flex;
     justify-content: space-between;
+    margin-top: 2.5rem;
+    padding: 0 4rem 1.5rem
   }
 }
+
 </style>

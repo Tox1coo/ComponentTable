@@ -24,7 +24,7 @@
       </div>
     </template>
   </SearchBar>
-  <TableTask :statuses-list="statusesList" :columns="columns" :items="getTasksList"/>
+  <TableTask :tab-button-list="statusesList" :columns="columns" :items="getTasksList" @clickTabOnTable="updateCurrentStatuses"/>
 </section>
 </template>
 
@@ -46,34 +46,426 @@ export default {
           "id": 1,
           "name": "all",
           "label": "Все",
-          "color": "#2679FB"
+          "color": "#2679FB",
+          "isActive": true
         },
         {
           "id": 2,
           "name": "work",
           "label": "В работе",
-          "color": "#6CBE39"
+          "color": "#6CBE39",
+          "isActive": false
         },
         {
           "id": 3,
           "name": "overdue",
           "label": "Просроченные",
-          "color": "#C75550"
+          "color": "#C75550",
+          "isActive": false
+
         },
         {
           "id": 4,
           "name": "deferred",
           "label": "Отложенные",
-          "color": "#FFAE02"
+          "color": "#FFAE02",
+          "isActive": false
         },
         {
           "id": 5,
           "name": "waitingControl",
           "label": "Ждёт контроля",
-          "color": "#272727"
+          "color": "#272727",
+          "isActive": false
+
         }
       ],
       tasks: [
+        {
+          "id": {
+            "type": "number",
+            "label": 1
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"overdue",
+            "label": "Просроченно",
+            "colorText": "#C75550",
+            "selectDropList": [
+                {
+                  'code': 'work',
+                  'label': 'В работе',
+                  'isChecked': true
+                },
+                {
+                  'code': 'overdue',
+                  'label': 'Просроченно',
+                  'isChecked': false
+                },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#C75550"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 2
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 3
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "/assets/project.png",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 4
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 5
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 6
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 7
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
         {
           "id": {
             "type": "number",
@@ -89,16 +481,16 @@ export default {
             "label": "В работе",
             "colorText": "#6CBE39",
             "selectDropList": [
-                {
-                  'code': 'work',
-                  'label': 'В работе',
-                  'isChecked': true
-                },
-                {
-                  'code': 'overdue',
-                  'label': 'Просроченно',
-                  'isChecked': false
-                },
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
             ],
             "editable": true
           },
@@ -459,6 +851,776 @@ export default {
             "label": "SOLT"
           }
         },
+        {
+          "id": {
+            "type": "number",
+            "label": 1
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 2
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 3
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "/assets/project.png",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 4
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 5
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 6
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 7
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 1
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 2
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 3
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "/assets/project.png",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 4
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 5
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 6
+          },
+          "name": {
+            "type": "text",
+            "label": "Пример названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
+        {
+          "id": {
+            "type": "number",
+            "label": 7
+          },
+          "name": {
+            "type": "text",
+            "label": "Тип названия"
+          },
+          "status": {
+            "type": "select",
+            "code":"work",
+            "label": "В работе",
+            "colorText": "#6CBE39",
+            "selectDropList": [
+              {
+                'code': 'work',
+                'label': 'В работе',
+                'isChecked': true
+              },
+              {
+                'code': 'overdue',
+                'label': 'Просроченно',
+                'isChecked': false
+              },
+            ],
+            "editable": true
+          },
+          "activity": {
+            "type": "date",
+            "messages": {
+              "count": 1,
+              "bgc": "#6CBE39"
+            },
+            "label": "31 Февраля 2024, 11:38"
+          },
+          "deadlineDate": {
+            "type": "date",
+            "label": "17 Марта, 15:00"
+          },
+          "director": {
+            "type": "text",
+            "label": "Дорофеев Д.Н"
+          },
+          "responsible": {
+            "type": "text",
+            "label": "Аврамов К.Д",
+            "editable": true
+          },
+          "projectOFgroup": {
+            "type": "image",
+            "image": "",
+            "label": "SOLT"
+          }
+        },
       ],
       columns: [
         {
@@ -561,11 +1723,19 @@ export default {
           isActive: false
         }
       ],
+      activeTableTab: 'all'
     }
   },
   computed: {
     getTasksList() {
-      return this.tasks.filter((task) => task.name.label.toLowerCase().trim().indexOf(this.searchString.toLowerCase().trim()) !== -1);
+      let cloneTasks = JSON.parse(JSON.stringify(this.tasks));
+      if(this.searchString) {
+        cloneTasks = cloneTasks.filter((task) => task.name.label.toLowerCase().trim().indexOf(this.searchString.toLowerCase().trim()) !== -1)
+      }
+      if(this.activeTableTab !== 'all') {
+        cloneTasks = cloneTasks.filter((item) => item.status.code === this.activeTableTab)
+      }
+      return cloneTasks;
     }
   },
   methods: {
@@ -586,6 +1756,10 @@ export default {
       let newActiveId = this[arrayName].findIndex(tab => tab.id === tabId);
       this[arrayName][beforeActiveId].isActive = false;
       this[arrayName][newActiveId].isActive = true;
+    },
+    updateCurrentStatuses(tab) {
+      this.activeTableTab = tab.name;
+      this.updateActiveTab(tab.id, 'statusesList')
     }
   }
 }
@@ -660,5 +1834,33 @@ body{
 .pb-md { padding-bottom: 1em; }
 .pb-lg { padding-bottom: 1.5em; }
 .pb-xl { padding-bottom: 3em; }
+.custom-scroll {
+  & .simplebar-track {
+    background-color: rgba(#D8D8D8, 0.5);
 
+    &.simplebar-vertical {
+      width: 0.3rem;
+      top: auto;
+      right: 4rem;
+      height: 97%;
+      bottom: 0;
+    }
+    &.simplebar-horizontal {
+      height: 0.3rem;
+      top: auto;
+      right: 4rem;
+      width: 97%;
+      bottom: 0;
+    }
+    .simplebar-scrollbar::before {
+      background-color: #2679FB;
+      border-radius: 0;
+      opacity: 1;
+      width: 100%;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
 </style>

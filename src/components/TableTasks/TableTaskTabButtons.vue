@@ -1,8 +1,9 @@
 <script>
 export default {
-  name: "TableTaskStatusesButton",
+  name: "TableTaskTabButtons",
+  emits: ['clickTabOnTable'],
   props: {
-    statusButtonInfo: {
+    tabButtonInfo: {
       type: Object,
       required: true
     }
@@ -11,11 +12,11 @@ export default {
 </script>
 
 <template>
-  <div class="status-button">
+  <div @click="$emit('clickTabOnTable', tabButtonInfo)" class="status-button" :class="{'active': tabButtonInfo.isActive}">
     <p>
-      {{statusButtonInfo.label}}
+      {{tabButtonInfo.label}}
     </p>
-    <span :style="{backgroundColor: statusButtonInfo.color}"></span>
+    <span :style="{backgroundColor: tabButtonInfo.color}"></span>
   </div>
 </template>
 
@@ -27,6 +28,9 @@ export default {
   font-size: 1.2rem;
   cursor: pointer;
   border-radius: 0.5rem 0.5rem 0 0;
+  &.active {
+    background-color: rgba(#A9A9A9, 0.2);
+  }
   p {
     padding: 0.8rem 5.8rem;
 

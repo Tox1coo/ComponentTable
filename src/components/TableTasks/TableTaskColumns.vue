@@ -5,6 +5,10 @@ export default {
     columnsTable: {
       type: Array,
       required:true
+    },
+    selectedAll:{
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -13,9 +17,9 @@ export default {
 <template>
   <div class="columns">
     <div class="columns-item columns-item--checkbox">
-      <input type="checkbox" @click="$emit('updateSelectRow', {'enabled': $event.target.checked, id: -1})">
+      <input type="checkbox" @click="$emit('updateSelectRow', {'enabled': $event.target.checked, id: -1})" :checked="selectedAll">
     </div>
-    <div v-for="column in columnsTable" :key="column.id" class="columns-item">
+    <div v-for="column in columnsTable" :key="column.id" class="columns-item" :style="{'flex-basis': column.width}">
       {{column.label}}
     </div>
   </div>

@@ -19,16 +19,30 @@ export default {
     isCheckedRow() {
       return this.selectedRows.findIndex((rowItem) => rowItem.id === this.row.id) !== -1
     }
+  },
+  methods: {
+    setWidth(key) {
+      let indexColumn = this.columns.findIndex(col => col.prop === key);
+
+      if(indexColumn !== -1) {
+        return this.columns[indexColumn].width
+      }
+      return ''
+    }
   }
 }
 </script>
 
 <template>
-  <div class="table-row" :class="{'checked': isCheckedRow}">
+  <div class="table-row" :class="{'checked': isCheckedRow}" >
     <div class="table-row__item table-row__item-checkbox">
       <input type="checkbox" @click="$emit('updateSelectRow', {'enabled': $event.target.checked, id: row.id})" :checked="isCheckedRow">
     </div>
-    <div class="table-row__item" v-for="(rowData, key,index) in row" :key="rowData.id" v-show="columns.findIndex(col => col.prop === key) !== -1">
+    <div class="table-row__item" v-for="(rowData, key,index) in row"
+         :key="rowData.id"
+         v-show="columns.findIndex(col => col.prop === key) !== -1"
+         :style="{'flex-basis': setWidth(key)}"
+    >
 
       <span v-if="rowData.type === 'images'" class="table-row__item-flex">
       </span>
@@ -60,10 +74,14 @@ export default {
   font-size: 1.6rem;
   gap: 1rem;
   font-weight: 500;
+  padding: 1.5rem 6rem 1.5rem 4rem;
+  &:first-child {
+    padding-top: 3rem;
+  }
   &.checked {
+    background-color: rgba(#6CBE39, 0.05);
   }
   &__item {
-    flex-basis: 13%;
     position: relative;
     &-flex {
       display: flex;
