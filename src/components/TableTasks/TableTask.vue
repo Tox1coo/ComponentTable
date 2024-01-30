@@ -4,10 +4,11 @@ import TableTaskColumns from "@/components/TableTasks/TableTaskColumns.vue";
 import TableTaskRow from "@/components/TableTasks/TableTaskRow.vue";
 import Paginator from "@/components/Paginator/Paginator.vue";
 import ShowCountItems from "@/components/ShowsCount/ShowCountItems.vue";
+import TheButton from "@/components/UI/TheButton.vue";
 
 export default {
   name: "TableTask",
-  components: {ShowCountItems, Paginator, TableTaskRow, TableTaskColumns, TableTaskStatusesButtons},
+  components: {TheButton, ShowCountItems, Paginator, TableTaskRow, TableTaskColumns, TableTaskStatusesButtons},
   data() {
     return {
       itemsPerPage: 5,
@@ -88,7 +89,11 @@ export default {
         <TableTaskColumns :columns-table="columns" @updateSelectRow="updateSelectRow" />
       </div>
       <div class="table-tasks__body">
-        <TableTaskRow v-for="row in sliceItems" :key="row.id" :row="row" :columns="columns" class="mb-lg" @updateSelectRow="updateSelectRow" :selected-rows="selectedRows" />
+        <TableTaskRow v-for="row in sliceItems" :key="row.id" :row="row" :columns="columns" class="mb-lg" @updateSelectRow="updateSelectRow" :selected-rows="selectedRows">
+          <template #actionsButtons>
+            <TheButton text="Войти в группу" />
+          </template>
+        </TableTaskRow>
       </div>
       <div class="table-tasks__footer">
         <Paginator :pages="items.length" :items-per-page="itemsPerPage" @updatePageNumber="getCurrentPage" :current-page="currentPage"/>
